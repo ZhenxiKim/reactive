@@ -2,11 +2,15 @@ package com.rp.sec01;
 
 import com.rp.courseutil.Util;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 public class Lec06SupplierRefactoring {
     public static void main(String[] args) {
         getName();
-        getName().subscribe(Util.onNext(),Util.onError(),Util.onComplete());
+        //getName().subscribe(Util.onNext());
+        getName()
+                //.subscribeOn(Schedulers.boundedElastic())
+                .subscribe(Util.onNext());
         getName();
     }
 
@@ -14,7 +18,7 @@ public class Lec06SupplierRefactoring {
         System.out.println("entered getName method");
         return Mono.fromSupplier(() -> {
             System.out.println("Generating name..");
-            Util.sleepSeconds(3);
+            Util.sleepSeconds(3);//blocking
             return Util.faker().name().fullName();
 
         }).map(String::toUpperCase);
