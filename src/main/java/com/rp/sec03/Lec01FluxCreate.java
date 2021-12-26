@@ -8,9 +8,9 @@ import java.util.Locale;
 public class Lec01FluxCreate {
     public static void main(String[] args) {
         Flux.create(fluxSink -> {
-//            fluxSink.next(1);
-//            fluxSink.next(1);
-//            fluxSink.complete();
+            fluxSink.next(1);
+            fluxSink.next(1);
+            fluxSink.complete();
             String country;
             do {
                 country = Util.faker().country().name();
